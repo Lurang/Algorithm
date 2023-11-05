@@ -1,31 +1,34 @@
-const inputs = require('fs').readFileSync('/dev/stdin').toString().trim().split('');
+const inputs = require('fs').readFileSync('/dev/stdin').toString().trim();
 
-const A = [];
-const B = [];
-const C = [];
+let s = inputs;
 let count = 0;
 
-inputs.forEach((item, index) =>
-    item === 'A' && A.push(index)
-    || item === 'B' && B.push(index)
-    || item === 'C' && C.push(index)
-);
+const replaceCharacter = (string, index, replacement) =>
+    string.slice(0, index) + replacement + string.slice(index + replacement.length);
 
-const check = (before, after) => {
-    const left = [];
-    for (const beforeValue of before) {
-        const existIndex = after.findIndex(afterValue => beforeValue < afterValue);
-        if (existIndex !== -1) {
-            after.splice(existIndex, 1);
+
+const bIndexes = [];
+for (let i = 0; i < s.length; i++) {
+    if (s[i] === 'B') {
+        bIndexes.push(i);
+    } else if (s[i] === 'C') {
+        if (bIndexes[0] < i) {
+            s = replaceCharacter(s, bIndexes.shift(), '_');
             count++;
-        } else {
-            left.push(beforeValue);
         }
     }
-
-    return left;
 }
 
-const leftB = check(B, C);
-check(A, leftB);
+const aIndexes = [];
+for (let i = 0; i < s.length; i++) {
+    if (s[i] === 'A') {
+        aIndexes.push(i);
+    } else if (s[i] === 'B') {
+        if (aIndexes[0] < i) {
+            aIndexes.shift();
+            count++;
+        }
+    }
+}
+
 console.log(count);
