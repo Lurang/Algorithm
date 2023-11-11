@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 48896 KB, 시간: 416 ms
+메모리: 299352 KB, 시간: 1324 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2023년 11월 8일 23:16:54
+2023년 11월 11일 20:12:58
 
 ### 문제 설명
 
@@ -42,7 +42,7 @@
 
 <p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/228ad3ee-f06a-4d2c-a62f-adecc51a86f0/-/preview/"></p>
 
-<p style="text-align: center;"><img alt="" src=""></p>
+<p style="text-align: center;"><img alt="" src="https://upload.acmicpc.net/2edc08ef-04c2-4f16-901f-ae2bd3988512/-/preview/"></p>
 
 <p>유효 사거리는 진지 앞으로부터 1 m이다. 하지만 진지 바로 앞 1 m의 좀비는 체력과 상관없이 제압할 수 있다.</p>
 
