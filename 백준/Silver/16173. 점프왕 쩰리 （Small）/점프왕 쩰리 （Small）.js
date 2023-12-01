@@ -1,26 +1,27 @@
-const inputs = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n').map(x => x.split(' ').map(Number));
-const N = inputs.shift()[0]
+let [N, ...inputs] = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+inputs = inputs.map(x => x.split(' ').map(Number))
 const checked = Array.from({length: +N}, () => Array.from({length: +N}).fill(0));
 
-const s = [[0, 0]];
+const q = [[0, 0]];
 let answer = 'Hing';
 
-while (s.length > 0) {
-    const [x, y] = s.pop();
+while (q.length > 0) {
+    const [x, y] = q.shift();
 
-    if (checked[x][y] === 1) continue;
+    if (checked[x][y]) continue;
     checked[x][y] = 1;
 
-    if (inputs[x][y] === -1) {
+    const jump = inputs[x][y];
+    if (jump === -1) {
         answer = 'HaruHaru';
         break;
     }
 
-    if (x + inputs[x][y] < N && checked[x + inputs[x][y]][y] === 0) {
-        s.push([x + inputs[x][y], y]);
+    if (x + jump < N) {
+        q.push([x + jump, y]);
     }
-    if (y + inputs[x][y] < N && checked[x][y + inputs[x][y]] === 0) {
-        s.push([x, y + inputs[x][y]]);
+    if (y + jump < N) {
+        q.push([x, y + jump]);
     }
 }
 
