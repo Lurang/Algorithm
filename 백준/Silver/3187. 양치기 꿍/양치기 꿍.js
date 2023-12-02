@@ -6,22 +6,22 @@ const checked = Array.from({length: height}, () => Array.from({length: width}).f
 const answer = [0, 0];
 
 const search = (i, j) => {
-    const s = [[i, j]];
+    const q = [[i, j]];
     let k = 0;
     let v = 0;
 
-    while(s.length > 0) {
-        const [x, y] = s.pop();
+    while(q.length > 0) {
+        const [x, y] = q.shift();
         if (checked[x][y]) continue;
         checked[x][y] = true;
 
         if (inputs[x][y] === 'k') k++;
         if (inputs[x][y] === 'v') v++;
 
-        if (x > 0          && inputs[x - 1][y] !== '#' && !checked[x - 1][y]) s.push([x - 1, y])
-        if (x < height - 1 && inputs[x + 1][y] !== '#' && !checked[x + 1][y]) s.push([x + 1, y])
-        if (y > 0          && inputs[x][y - 1] !== '#' && !checked[x][y - 1]) s.push([x, y - 1])
-        if (y < width - 1  && inputs[x][y + 1] !== '#' && !checked[x][y + 1]) s.push([x, y + 1])
+        if (x > 0          && inputs[x - 1][y] !== '#' && !checked[x - 1][y]) q.push([x - 1, y])
+        if (x < height - 1 && inputs[x + 1][y] !== '#' && !checked[x + 1][y]) q.push([x + 1, y])
+        if (y > 0          && inputs[x][y - 1] !== '#' && !checked[x][y - 1]) q.push([x, y - 1])
+        if (y < width - 1  && inputs[x][y + 1] !== '#' && !checked[x][y + 1]) q.push([x, y + 1])
     }
 
     if (k > v) {
