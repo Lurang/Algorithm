@@ -47,10 +47,10 @@ for (let r = 0; r < N; r++) {
     for (let c = 0; c < N; c++) {
         if (inputs[r][c] > 0 && checked[r][c] === 0) {
             checked[r][c] = 1;
-            const stack = [[r, c]];
+            const queue = [[r, c]];
             let area = 1;
-            while (stack.length > 0) {
-                const [x, y] = stack.pop();
+            while (queue.length > 0) {
+                const [x, y] = queue.shift();
 
                 sum += inputs[x][y];
                 for (let i = 0; i < 4; i++) {
@@ -60,7 +60,7 @@ for (let r = 0; r < N; r++) {
                     if (nx >= 0 && nx < N && ny >= 0 && ny < N && inputs[nx][ny] > 0 && checked[nx][ny] === 0) {
                         checked[nx][ny] = 1;
                         area++;
-                        stack.push([nx, ny]);
+                        queue.push([nx, ny]);
                     }
                 }
             }
