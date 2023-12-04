@@ -3,6 +3,7 @@ const [n, Q] = inputs.shift();
 const storm = inputs.pop();
 const N = 1 << n;
 const checked = Array.from({length: N}, () => Array.from({length: N}).fill(0));
+let temp = Array.from({length: N}, () => Array.from({length: N}));
 let count = 0;
 let sum = 0;
 
@@ -10,29 +11,19 @@ const dx = [1, 0, -1, 0];
 const dy = [0, -1, 0, 1];
 
 const doStrom = () => {
-    const arr = [];
     for (let x = 0; x < N; x++) {
         for (let y = 0; y < N; y++) {
-            if (inputs[x][y] > 0) {
-                let count = 0;
-                for (let i = 0; i < 4; i++) {
-                    const nx = x + dx[i];
-                    const ny = y + dy[i];
+            let count = 0;
+            for (let i = 0; i < 4; i++) {
+                const nx = x + dx[i];
+                const ny = y + dy[i];
 
-                    if (nx >= 0 && nx < N && ny >= 0 && ny < N && inputs[nx][ny] > 0) {
-                        count++;
-                    }
-                }
-
-                if (count < 3) {
-                    arr.push([x, y]);
+                if (nx >= 0 && nx < N && ny >= 0 && ny < N && temp[nx][ny] > 0) {
+                    count++;
                 }
             }
+            inputs[x][y] = temp[x][y] - (count < 3 ? 1 : 0);
         }
-    }
-
-    for (const [x, y] of arr) {
-        inputs[x][y] = inputs[x][y] - 1;
     }
 };
 
@@ -41,16 +32,9 @@ for (let i = 0; i < Q; i++) {
 
     for (let j = 0; j < N; j += L) {
         for (let k = 0; k < N; k += L) {
-            const tmp = Array.from({length: L}, () => Array.from({length: L}).fill(0));
             for (let x = 0; x < L; x++) {
                 for (let y = 0; y < L; y++) {
-                    tmp[x][y] = inputs[x + j][y + k];
-                }
-            }
-
-            for (let x = 0; x < L; x++) {
-                for (let y = 0; y < L; y++) {
-                    inputs[x + j][y + k] = tmp[L - 1 - y][x];
+                    temp[j + y][k + L - 1 - x] = inputs[x + j][y + k];
                 }
             }
         }
